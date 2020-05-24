@@ -5,8 +5,9 @@
 <script>
 import ECharts from 'vue-echarts';
 import 'echarts/lib/chart/bar';
+import 'echarts/lib/chart/line';
 import { mapGetters } from 'vuex';
-// import { getStat } from '../store/profile/getters';
+import { date } from 'quasar';
 
 export default {
   components: {
@@ -21,13 +22,34 @@ export default {
           text: 'MOEX',
         },
         xAxis: {
+          name: 'Date',
           type: 'category',
           data: [],
-          // axisLabel: {
-          //   color: 'rgba(255, 255, 255, 0.4)',
-          // },
+          axisLabel: {
+            rotate: 90,
+            color: 'green',
+          },
         },
-        yAxis: {},
+        yAxis: [
+          {
+            type: 'value',
+            name: 'Cash',
+            position: 'left',
+            axisLabel: {
+              formatter: '{value} ₽',
+              color: 'red',
+            },
+          },
+          {
+            type: 'value',
+            name: 'Profit',
+            position: 'right',
+            axisLabel: {
+              formatter: '{value} %',
+              color: 'primary',
+            },
+          },
+        ],
         legend: {
           data: ['line'],
         },
@@ -35,7 +57,11 @@ export default {
           {
             name: 'Cash',
             type: 'bar',
-            // showSymbol: false,
+            data: [],
+          },
+          {
+            name: 'Profit',
+            type: 'line',
             data: [],
           },
         ],
@@ -47,15 +73,24 @@ export default {
     getStat(newStat) {
       // eslint-disable-next-line no-console
       // console.log(ECharts);
+      const vals = newStat.map((i) => i.cash);
       this.$refs.bar.mergeOptions({
         xAxis: {
-          data: newStat.map((i) => i.time),
+          data: newStat.map((i) => date.formatDate(i.time, 'MM.DD')),
         },
-        series: [{
-          // find series by name
-          name: 'Cash',
-          data: newStat.map((i) => i.cash),
-        }],
+        series: [
+          {
+            // find series by name
+            name: 'Cash',
+            data: vals,
+            yAxisIndex: 0,
+          },
+          {
+            name: 'Profit',
+            data: newStat.map((i) => i.profit),
+            yAxisIndex: 1,
+          },
+        ],
       });
     },
   },

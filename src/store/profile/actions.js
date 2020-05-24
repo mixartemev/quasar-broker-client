@@ -32,6 +32,6 @@ export async function fetchStat(ctx, market) {
   if (!ctx.state.markets) {
     await ctx.dispatch('fetchPortfolios');
   }
-  const res = await ctx.dispatch('req', [`https://api.alor.ru/md/stats/${market}/${ctx.state.markets.fnd.p}/finance?amount=100&From=1588316400&To=${Math.ceil(Date.now() / 1000)}`]);
+  const res = await ctx.dispatch('req', [`https://api.alor.ru/md/stats/${market}/${ctx.state.markets.fnd.p}/finance?amount=50&From=1588316400&To=${Math.ceil(Date.now() / 1000)}`]);
   ctx.commit('refreshFinStat', res);
 }
