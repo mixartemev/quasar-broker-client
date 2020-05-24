@@ -1,6 +1,6 @@
 <template>
   <q-layout view="hHh Lpr lff">
-    <q-header elevated :class="$q.dark.isActive ? 'bg-grey-10' : 'bg-grey-7'">
+    <q-header elevated class="glossy" :class="$q.dark.isActive ? 'bg-grey-10' : ''">
       <q-toolbar>
         <q-btn
           flat
@@ -12,7 +12,7 @@
         />
 
         <q-toolbar-title>
-            <q-item clickable tag="a" href="/">Nastia Whore</q-item>
+            <q-item clickable to="/" exact active-class="text-white">ALOR Client</q-item>
         </q-toolbar-title>
 
         <q-btn
