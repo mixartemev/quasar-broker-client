@@ -1,9 +1,27 @@
 <template>
   <div>
-    <p>token updated: {{whenTokUpd}}</p>
-    <button @click="fetchPortfolios()">Portfolios</button>
-    <button @click="fetchStat('SPBX', 321)">Stat</button>
-    <button @click="actt()">Actt</button>
+    <div class="q-gutter-sm">
+      <q-btn
+        align="between"
+        :loading="tokenLoading"
+        :color="whenTokUpd ? 'positive' : 'negative'"
+        @click="tokenUpd"
+        icon="vpn_key"
+      >
+        &nbsp;{{ whenTokUpd || 'Update token' }}
+        <template v-slot:loading>
+          <q-spinner-facebook class="on-left" />
+          Loading...
+        </template>
+      </q-btn>
+      <q-btn :loading="statLoading" color="primary" @click="statLoad" icon="bar_chart">
+        Get Stat
+        <template v-slot:loading>
+          <q-spinner-facebook class="on-left" />
+          Loading...
+        </template>
+      </q-btn>
+    </div>
   </div>
 </template>
 
@@ -12,13 +30,25 @@ import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'Profile',
-  computed: mapGetters('profile', ['getTok', 'whenTokUpd']),
+  computed: mapGetters(/* 'profile', */['whenTokUpd', 'getStat']),
   methods: {
-    ...mapActions('profile', ['fetchToken', 'fetchPortfolios', 'fetchStat']),
-    actt() {
-      // eslint-disable-next-line no-console
-      console.log(this);
+    ...mapActions(/* 'profile', */['fetchToken', 'fetchPortfolios', 'fetchStat']),
+    async statLoad() {
+      this.statLoading = true;
+      await this.fetchStat('SPBX');
+      this.statLoading = false;
     },
+    async tokenUpd() {
+      this.tokenLoading = true;
+      await this.fetchToken();
+      this.tokenLoading = false;
+    },
+  },
+  data() {
+    return {
+      tokenLoading: false,
+      statLoading: false,
+    };
   },
 };
 </script>

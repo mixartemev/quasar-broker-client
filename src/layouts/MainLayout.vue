@@ -74,7 +74,7 @@ export default {
       essentialLinks: [
         {
           title: 'MOEX Stat',
-          caption: 'quasar.dev',
+          caption: 'portfolio equity',
           icon: 'timeline',
           link: 'profile',
         },
