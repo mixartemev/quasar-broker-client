@@ -12,15 +12,21 @@
     "test": "echo \"No test specified\" && exit 0"
   },
   "dependencies": {
-    "@quasar/extras": "^1.0.0",
-    "quasar": "^1.0.0"
+    "@quasar/extras": "latest",
+    "echarts": "^4.7.0",
+    "quasar": "latest",
+    "vue": "latest",
+    "vue-echarts": "^5.0.0-beta.0",
+    "vue-router": "latest",
+    "vuex": "latest"
   },
   "devDependencies": {
-    "@quasar/app": "^1.0.0",
+    "@quasar/app": "latest",
+    "@quasar/quasar-app-extension-dotenv": "^1.0.1",
     "babel-eslint": "^10.0.1",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.0.0",
-    "eslint-loader": "^3.0.3",
+    "eslint-loader": "latest",
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-vue": "^6.1.2"
   },
@@ -33,6 +39,6 @@
     "last 1 version, not dead, ie >= 11"
   ],
   "resolutions": {
-    "@babel/parser": "7.7.5"
+    "@babel/parser": "7.9.6"
   }
 }
