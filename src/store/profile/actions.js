@@ -35,3 +35,7 @@ export async function fetchStat(ctx, market) {
   const res = await ctx.dispatch('req', [`https://api.alor.ru/md/stats/${market}/${ctx.state.markets.fnd.p}/finance?amount=50&From=1588316400&To=${Math.ceil(Date.now() / 1000)}`]);
   ctx.commit('refreshFinStat', res);
 }
+export async function fetchOrders(ctx, secCode) {
+  const res = await ctx.dispatch('req', [`https://api.alor.ru/md/orderbooks/MOEX/${secCode}`]);
+  ctx.commit('refreshOrders', res);
+}

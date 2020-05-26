@@ -26,3 +26,7 @@ export function stMarkets(state, m) {
 export function refreshFinStat(state, stat) {
   state.stat = stat;
 }
+
+export function refreshOrders(state, orders) {
+  state.orders = orders;
+}

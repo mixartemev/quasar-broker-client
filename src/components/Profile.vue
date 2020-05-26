@@ -21,6 +21,13 @@
           Loading...
         </template>
       </q-btn>
+      <q-btn :loading="ordersLoading" color="secondary" @click="ordersLoad" icon="swap_vert">
+        Get Orders
+        <template v-slot:loading>
+          <q-spinner-facebook class="on-left" />
+          Loading...
+        </template>
+      </q-btn>
     </div>
   </div>
 </template>
@@ -32,11 +39,16 @@ export default {
   name: 'Profile',
   computed: mapGetters(/* 'profile', */['whenTokUpd', 'getStat']),
   methods: {
-    ...mapActions(/* 'profile', */['fetchToken', 'fetchPortfolios', 'fetchStat']),
+    ...mapActions(/* 'profile', */['fetchToken', 'fetchPortfolios', 'fetchStat', 'fetchOrders']),
     async statLoad() {
       this.statLoading = true;
       await this.fetchStat('SPBX');
       this.statLoading = false;
+    },
+    async ordersLoad() {
+      this.ordersLoading = true;
+      await this.fetchOrders('SBER');
+      this.ordersLoading = false;
     },
     async tokenUpd() {
       this.tokenLoading = true;
@@ -48,6 +60,7 @@ export default {
     return {
       tokenLoading: false,
       statLoading: false,
+      ordersLoading: false,
     };
   },
 };

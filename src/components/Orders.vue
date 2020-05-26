@@ -1,5 +1,5 @@
 <template>
-  <v-chart :options="stat" ref="bar"/>
+  <v-chart :options="orders" ref="bar"/>
 </template>
 
 <script>
@@ -17,7 +17,7 @@ export default {
   name: 'PortfolioStat',
   data() {
     return {
-      stat: {
+      orders: {
         title: { text: 'MOEX' },
         grid: { show: true },
         xAxis: {
@@ -29,14 +29,14 @@ export default {
         yAxis: [
           {
             type: 'value',
-            name: 'Cash',
+            name: 'Vol',
             position: 'left',
             axisLabel: { formatter: '{value} ₽' },
             axisLine: { lineStyle: { color: '#a66' } },
           },
           {
             type: 'value',
-            name: 'Profit',
+            name: 'Price',
             position: 'right',
             axisLabel: { formatter: '{value} %' },
             axisLine: { lineStyle: { color: '#696' } },
@@ -46,13 +46,13 @@ export default {
         // legend: { data: ['line'] },
         series: [
           {
-            name: 'Cash',
+            name: 'Vol',
             type: 'bar',
             data: [],
             color: '#944',
           },
           {
-            name: 'Profit',
+            name: 'Price',
             type: 'line',
             color: '#696',
             data: [],
@@ -63,24 +63,24 @@ export default {
     };
   },
   watch: {
-    getStat(newStat) {
+    getOrders(newOrders) {
       // eslint-disable-next-line no-console
       // console.log(ECharts);
-      const vals = newStat.map((i) => i.cash);
+      const vals = newOrders.map((i) => i.volume);
       this.$refs.bar.mergeOptions({
         xAxis: {
-          data: newStat.map((i) => date.formatDate(i.time, 'MM.DD')),
+          data: newOrders.map((i) => date.formatDate(i.time, 'MM.DD')),
         },
         series: [
           {
             // find series by name
-            name: 'Cash',
+            name: 'Vol',
             data: vals,
             yAxisIndex: 0,
           },
           {
-            name: 'Profit',
-            data: newStat.map((i) => i.profit),
+            name: 'Price',
+            data: newOrders.map((i) => i.price),
             yAxisIndex: 1,
           },
         ],

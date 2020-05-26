@@ -6,3 +6,6 @@ export function whenTokUpd(state) {
 export function getStat(state/* , getters, rootState, rootGetters */) {
   return state.stat;
 }
+export function getOrdres(state/* , getters, rootState, rootGetters */) {
+  return state.orders;
+}
